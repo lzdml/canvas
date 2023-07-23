@@ -1,3 +1,10 @@
+/*
+ * @Author: DZL
+ * @Date: 2023-07-11 11:49:38
+ * @LastEditors: DZL
+ * @LastEditTime: 2023-07-23 12:20:35
+ * @Description:
+ */
 import { UserConfig, ConfigEnv, loadEnv } from 'vite';
 import { createVitePlugins } from './build/vite/plugins';
 import { resolve } from 'path';
@@ -16,7 +23,7 @@ export default ({ command, mode }: ConfigEnv): UserConfig => {
   const viteEnv = wrapperEnv(env);
 
   return {
-    base: isBuild ? '/rebate/' : '/',
+    base: isBuild ? '/canvas/' : '/',
     resolve: {
       alias: [
         {

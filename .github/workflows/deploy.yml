@@ -28,4 +28,4 @@ jobs:
 
       - name: Show Deployed URL
         run: |
-          echo "Deployed Website URL: https://lzdml.github.io/animatee-canvas-js"
+          echo "Deployed Website URL: https://lzdml.github.io/canvas"
