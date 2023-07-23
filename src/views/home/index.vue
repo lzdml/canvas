@@ -127,7 +127,7 @@
   // };
 
   const message = new Message();
-  const { loading: showRight, toggle } = useLoading({ initValue: true });
+  const { loading: showRight, toggle } = useLoading({ initValue: false });
   const allPositions = [
     {
       id: 2,
