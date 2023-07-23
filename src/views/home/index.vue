@@ -229,12 +229,16 @@
     radius: number;
     canvasPad: number;
     options: any;
+    dpr: number;
     constructor(canvasRef: HTMLCanvasElement, options: EmojiOptions) {
       this.canvas = canvasRef;
       this.canvas.width = 200;
       this.canvas.height = 200;
-      this.ctx = this.canvas.getContext('2d')!;
+      this.ctx = this.canvas.getContext('2d', {
+        devicePixelRatio: window.devicePixelRatio,
+      })! as CanvasRenderingContext2D;
       this.options = options;
+      this.dpr = window.devicePixelRatio;
       this.ctx.fillStyle = options.fillStyle;
       this.canvasPad = 20;
       // 半径
@@ -312,7 +316,7 @@
       image.src = imageUrl;
 
       image.onload = () => {
-        this.ctx.drawImage(image, x, y, width, height);
+        this.ctx.drawImage(image, x, y, width * this.dpr, height * this.dpr);
       };
     }
   }
