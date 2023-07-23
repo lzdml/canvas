@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    .active {
+      border: 1px solid red;
+    }
+  </style>
+</head>
+<body>
+  <div id="btn">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Accusamus cupiditate quasi est, fuga, tenetur vel quod architecto culpa deleniti aperiam eos saepe. Nostrum assumenda recusandae earum necessitatibus distinctio. Placeat, vero.</div>
+  <script>
+    const btn = document.getElementById('btn')
+    function onFeedTouch(ref, ...rest) {
+      console.log('ref :>> ', ref);
+      console.log('rest :>> ', rest);
+      const classes = [...rest, 'active']
+      console.log('classes :>> ', classes.join(' '));
+      btn.classList.add(classes.join(' '))
+    }
+
+    onFeedTouch(btn, 'opacity-80', 'bg-[#ff561f]')
+  </script>
+</body>
+</html>
