@@ -52,13 +52,15 @@
           </div>
         </div>
 
-        <div class="flex items-center p-4 gap-x-3">
+        <div
+          class="w-full p-4 overflow-x-auto whitespace-nowrap gap-x-3"
+          scrollbar="~ h-1 rounded">
           <div
             v-for="(item, v) in targets"
             :class="{ '!bg-c_theme/20': v === activeId }"
             @click="handlerClick(item, v)"
             :key="v"
-            class="flex items-center justify-center w-16 h-16 p-1 transition-colors rounded-md cursor-pointer bg-gray-400/20"
+            class="inline-flex items-center justify-center w-16 h-16 p-1 mx-2 transition-colors rounded-md cursor-pointer bg-gray-400/20"
             hover="bg-c_theme/20">
             <img
               class="w-full h-full"
@@ -69,13 +71,16 @@
         <div class="w-full van-hairline--bottom"></div>
 
         <div>
-          <div class="flex flex-wrap items-center gap-3">
+          <div
+            class="grid grid-cols-5 gap-2 pt-2 auto-rows-max"
+            sm="grid-cols-8 gap-3">
             <div
               v-for="(item, v) in filterList"
               :class="{ '!bg-c_theme/20': item == targets[activeId] }"
               @click="selectSinglePart(item)"
               :key="v"
-              class="flex items-center justify-center p-1 p-2 transition-colors rounded-md cursor-pointer w-15 h-15 bg-gray-400/20"
+              class="flex items-center justify-center p-1 p-2 transition-colors rounded-md cursor-pointer bg-gray-400/20"
+              sm="w-15 h-15"
               hover="bg-c_theme/20">
               <img
                 class="w-full h-full"
@@ -234,11 +239,10 @@
       this.canvas = canvasRef;
       this.canvas.width = 200;
       this.canvas.height = 200;
-      this.ctx = this.canvas.getContext('2d', {
-        devicePixelRatio: window.devicePixelRatio,
-      })! as CanvasRenderingContext2D;
+      this.ctx = this.canvas.getContext('2d')!;
       this.options = options;
-      this.dpr = window.devicePixelRatio;
+      this.dpr = window.devicePixelRatio || 1;
+      this.ctx.scale(1, 1);
       this.ctx.fillStyle = options.fillStyle;
       this.canvasPad = 20;
       // 半径
@@ -316,7 +320,7 @@
       image.src = imageUrl;
 
       image.onload = () => {
-        this.ctx.drawImage(image, x, y, width * this.dpr, height * this.dpr);
+        this.ctx.drawImage(image, x, y, width, height);
       };
     }
   }
