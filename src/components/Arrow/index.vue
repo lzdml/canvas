@@ -2,7 +2,7 @@
  * @Author: DZL
  * @Date: 2023-07-23 13:04:53
  * @LastEditors: DZL
- * @LastEditTime: 2023-07-23 14:18:14
+ * @LastEditTime: 2023-07-23 14:27:45
  * @Description: 
 -->
 <template>
@@ -28,6 +28,7 @@
   interface Item {
     id: number;
     title: string;
+    type: string;
   }
 
   defineProps<{

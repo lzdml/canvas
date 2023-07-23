@@ -27,7 +27,7 @@
         sm="px-18 py-12">
         <div
           class="absolute right-4 top-4 group"
-          @click="setShowRight(true)">
+          @click="toggle">
           <div
             class="text-2xl transition-transform text-gray-600/50 i-tabler:menu-2"
             transition="all duration-200 ease-linear"
@@ -41,7 +41,9 @@
         </div>
 
         <div class="flex items-center py-2 gap-x-3">
-          <div class="text-2xl i-tabler:reload"></div>
+          <div
+            @click="randomEmoji"
+            class="text-2xl i-tabler:reload"></div>
           <div
             @click="canvasRef?.toBlob(exportImage)"
             class="flex items-center justify-center px-5 py-3 text-xs font-bold rounded-full cursor-pointer bg-gray-400/20"
@@ -55,7 +57,7 @@
             v-for="(item, v) in targets"
             :class="{ '!bg-c_theme/20': v === activeId }"
             @click="handlerClick(item, v)"
-            :key="item"
+            :key="v"
             class="flex items-center justify-center w-16 h-16 p-1 transition-colors rounded-md cursor-pointer bg-gray-400/20"
             hover="bg-c_theme/20">
             <img
@@ -102,6 +104,7 @@
 
 <script setup lang="ts">
   import { useLoading } from '/@/hooks';
+  import Message from '/@/utils/msg';
 
   interface EmojiOptions {
     fillStyle: string;
@@ -118,32 +121,37 @@
   //   height: number;
   // };
 
-  const { loading: showRight, setLoading: setShowRight } = useLoading({ initValue: true });
+  const message = new Message();
+  const { loading: showRight, toggle } = useLoading({ initValue: false });
   const allPositions = [
-    {
-      id: 1,
-      title: '头部',
-    },
     {
       id: 2,
       title: '眼睛',
+      type: 'eye',
     },
     {
       id: 3,
       title: '眉毛',
+      type: 'brow',
     },
     {
       id: 4,
       title: '嘴巴',
+      type: 'mouth',
     },
     {
       id: 5,
       title: '动作',
+      type: 'action',
     },
   ];
 
   const operate = (item, v) => {
     console.log('item, v :>> ', item, v);
+    message.setOption({
+      type: 'error',
+      message: '功能正在开发中',
+    });
   };
 
   function useStaticUrl(file, image, suffix = '.svg') {
@@ -173,6 +181,23 @@
     mouth: [],
     action: [],
   });
+
+  const randomEmoji = () => {
+    for (const k in targets) {
+      const random = menus[k][getRand(1, menus[k].length - 1)];
+      targets[k] = random;
+    }
+    nextTick(() => {
+      emojiRef.value?.ctx.clearRect(0, 0, emojiRef.value.canvas.width, emojiRef.value.canvas.height);
+      emojiRef.value!.drawContour();
+    });
+  };
+
+  // 生成一个n,m区间的随机数
+  const getRand = (n, m) => {
+    const r = Math.floor(Math.random() * (m - n + 1) + n);
+    return r;
+  };
 
   type TType = keyof typeof targets;
   const handlerClick = (_item, v) => {
@@ -225,7 +250,6 @@
         useStaticUrl('brow', targets.brow),
       ]).then((images) => {
         images.forEach((image) => {
-          console.log('image :>> ', image);
           image &&
             this.drawImageOnCanvas({
               imageUrl: image,
