@@ -1,12 +1,5 @@
-<!--
- * @Author: DZL
- * @Date: 2023-07-13 17:25:40
- * @LastEditors: DZL
- * @LastEditTime: 2023-07-23 11:04:19
- * @Description: 
--->
 <template>
-  <div class="content uppercase">
+  <div class="uppercase content">
     <CustomHeader
       title=""
       :border="false"
@@ -14,11 +7,11 @@
       :show-left="false"
       class="!bg-transparent h-14">
       <template #content>
-        <div class="text-xl text-neutral-800 tracking-wide font-extrabold">Emoji Maker</div>
+        <div class="text-xl font-extrabold tracking-wide text-neutral-800">Emoji Maker</div>
       </template>
       <template #right_slot>
         <div
-          class="inline-flex justify-center items-center p-1 text-neutral-600 opacity-50 cursor-pointer transition-opacity w-full h-full"
+          class="inline-flex items-center justify-center w-full h-full p-1 transition-opacity opacity-50 cursor-pointer text-neutral-600"
           hover="opacity-100">
           <i
             text-2xl
@@ -30,36 +23,40 @@
       class="px-4"
       sm="px-0">
       <main
-        class="rounded-md flex flex-col items-center p-4 gap-y-4"
+        class="relative z-20 flex flex-col items-center p-4 rounded-md box gap-y-4"
         sm="px-18 py-12">
         <div
-          class="flex justify-center items-center w-30 h-30 rounded-md"
+          class="absolute right-4 top-4 group"
+          @click="setShowRight(true)">
+          <div
+            class="text-2xl transition-transform text-gray-600/50 i-tabler:menu-2"
+            transition="all duration-200 ease-linear"
+            group-hover="text-c_theme/20 scale-110"></div>
+        </div>
+        <div
+          class="flex items-center justify-center rounded-md w-30 h-30"
           sm="w-50 h-50"
           border="3 solid neutral">
           <canvas ref="canvasRef"></canvas>
         </div>
 
-        <div class="py-2 flex items-center gap-x-3">
-          <div class="i-tabler:reload text-2xl"></div>
+        <div class="flex items-center py-2 gap-x-3">
+          <div class="text-2xl i-tabler:reload"></div>
           <div
-            class="flex items-center justify-center text-xs bg-gray-400/20 rounded-full px-5 py-3 font-bold cursor-pointer"
+            @click="canvasRef?.toBlob(exportImage)"
+            class="flex items-center justify-center px-5 py-3 text-xs font-bold rounded-full cursor-pointer bg-gray-400/20"
             hover="bg-c_theme/80 text-white">
             Export PNG
           </div>
-          <div
-            class="flex items-center justify-center text-xs bg-gray-400/20 rounded-full px-5 py-3 font-bold cursor-pointer"
-            hover="bg-c_theme/80 text-white">
-            export svg
-          </div>
         </div>
 
-        <div class="flex items-center gap-x-3 p-4">
+        <div class="flex items-center p-4 gap-x-3">
           <div
             v-for="(item, v) in targets"
             :class="{ '!bg-c_theme/20': v === activeId }"
             @click="handlerClick(item, v)"
             :key="item"
-            class="flex justify-center items-center w-16 h-16 rounded-md cursor-pointer transition-colors bg-gray-400/20 p-1"
+            class="flex items-center justify-center w-16 h-16 p-1 transition-colors rounded-md cursor-pointer bg-gray-400/20"
             hover="bg-c_theme/20">
             <img
               class="w-full h-full"
@@ -67,16 +64,16 @@
               alt="" />
           </div>
         </div>
-        <div class="van-hairline--bottom w-full"></div>
+        <div class="w-full van-hairline--bottom"></div>
 
         <div>
-          <div class="flex items-center gap-3 flex-wrap">
+          <div class="flex flex-wrap items-center gap-3">
             <div
               v-for="(item, v) in filterList"
               :class="{ '!bg-c_theme/20': item == targets[activeId] }"
               @click="selectSinglePart(item)"
               :key="v"
-              class="flex justify-center items-center w-15 h-15 p-2 rounded-md cursor-pointer transition-colors bg-gray-400/20 p-1"
+              class="flex items-center justify-center p-1 p-2 transition-colors rounded-md cursor-pointer w-15 h-15 bg-gray-400/20"
               hover="bg-c_theme/20">
               <img
                 class="w-full h-full"
@@ -85,12 +82,27 @@
             </div>
           </div>
         </div>
+
+        <transition name="van-slide-left">
+          <div
+            v-if="showRight"
+            class="absolute top-0 w-40 h-full px-2 py-4 overflow-auto bg-white rounded-md scrollbar scrollbar-w-4px gap-y-3 -z-1 box -right-44">
+            <arrow
+              class="w-full h-34"
+              v-for="item in allPositions"
+              @click="operate"
+              :key="item.id"
+              :item="item" />
+          </div>
+        </transition>
       </main>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
+  import { useLoading } from '/@/hooks';
+
   interface EmojiOptions {
     fillStyle: string;
     shadowColor: string;
@@ -100,6 +112,39 @@
     x: number;
     y: number;
   }
+
+  // type PositionOptions = Point & {
+  //   width: number;
+  //   height: number;
+  // };
+
+  const { loading: showRight, setLoading: setShowRight } = useLoading({ initValue: true });
+  const allPositions = [
+    {
+      id: 1,
+      title: '头部',
+    },
+    {
+      id: 2,
+      title: '眼睛',
+    },
+    {
+      id: 3,
+      title: '眉毛',
+    },
+    {
+      id: 4,
+      title: '嘴巴',
+    },
+    {
+      id: 5,
+      title: '动作',
+    },
+  ];
+
+  const operate = (item, v) => {
+    console.log('item, v :>> ', item, v);
+  };
 
   function useStaticUrl(file, image, suffix = '.svg') {
     return new URL(`../../assets/images/${file}/${image}${suffix}`, import.meta.url).href;
@@ -121,9 +166,25 @@
     action: new Array(22).fill(22).map((_res, i) => 1 + i + ''),
   });
 
+  const positions = reactive({
+    head: [],
+    eye: [],
+    brow: [],
+    mouth: [],
+    action: [],
+  });
+
   type TType = keyof typeof targets;
   const handlerClick = (_item, v) => {
     activeId.value = v;
+  };
+
+  const exportImage = (blob: Blob) => {
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `emoji_${Date.now()}`;
+    a.click();
   };
 
   const selectSinglePart = (item) => {
@@ -244,7 +305,7 @@
 </script>
 
 <style scoped>
-  main {
+  .box {
     box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
   }
 </style>
