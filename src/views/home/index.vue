@@ -34,13 +34,13 @@
             group-hover="text-c_theme/20 scale-110"></div>
         </div>
         <div
-          class="flex items-center justify-center rounded-md w-30 h-30"
+          class="flex items-center justify-center mt-6 rounded-md w-30 h-30"
           sm="w-50 h-50"
           border="3 solid neutral">
           <canvas ref="canvasRef"></canvas>
         </div>
 
-        <div class="flex items-center py-2 gap-x-3">
+        <div class="flex items-center py-2 mt-4 gap-x-6">
           <div
             @click="randomEmoji"
             class="text-2xl i-tabler:reload"></div>
@@ -127,7 +127,7 @@
   // };
 
   const message = new Message();
-  const { loading: showRight, toggle } = useLoading({ initValue: false });
+  const { loading: showRight, toggle } = useLoading({ initValue: true });
   const allPositions = [
     {
       id: 2,
@@ -151,8 +151,38 @@
     },
   ];
 
+  function adjustValue(type, value) {
+    console.log('type, value :>> ', type, value);
+    const directions = {
+      left: -1,
+      up: -1,
+      right: 1,
+      down: 1,
+    };
+
+    const step = directions[type];
+    if (step) {
+      value += step;
+    }
+
+    return value;
+  }
+
   const operate = (item, v) => {
-    console.log('item, v :>> ', item, v);
+    // console.log('item, v :>> ', item, v);
+    // console.log('activeId.value :>> ', activeId.value);
+
+    // const emoji = emojiRef.value!;
+    // const options = {
+    //   x: adjustValue(v, emoji.canvasPad / 2),
+    //   y: adjustValue(v, emoji.canvasPad / 2),
+    //   width: emoji.canvas.width - emoji.canvasPad,
+    //   height: emoji.canvas.height - emoji.canvasPad,
+    // };
+    // emoji.ctx.clearRect(0, 0, emoji.canvas.width, emoji.canvas.height);
+    // console.log('options :>> ', options);
+    // emoji.drawContour(options);
+
     message.setOption({
       type: 'error',
       message: '功能正在开发中',
@@ -194,7 +224,7 @@
     }
     nextTick(() => {
       emojiRef.value?.ctx.clearRect(0, 0, emojiRef.value.canvas.width, emojiRef.value.canvas.height);
-      emojiRef.value!.drawContour();
+      emojiRef.value!.drawContour({});
     });
   };
 
@@ -220,7 +250,7 @@
   const selectSinglePart = (item) => {
     targets[activeId.value] = item;
     emojiRef.value?.ctx.clearRect(0, 0, emojiRef.value.canvas.width, emojiRef.value.canvas.height);
-    emojiRef.value!.drawContour();
+    emojiRef.value!.drawContour({});
   };
 
   const activeId = ref<TType>('head');
@@ -249,7 +279,7 @@
       this.radius = this.canvas.width / 2 - this.canvasPad;
     }
 
-    drawContour() {
+    drawContour({ x = this.canvasPad / 2, y = this.canvasPad / 2, width = this.canvas.width - this.canvasPad, height = this.canvas.height - this.canvasPad }) {
       Promise.all([
         useStaticUrl('head', targets.head),
         useStaticUrl('eye', targets.eye),
@@ -261,10 +291,10 @@
           image &&
             this.drawImageOnCanvas({
               imageUrl: image,
-              x: this.canvasPad / 2,
-              y: this.canvasPad / 2,
-              width: this.canvas.width - this.canvasPad,
-              height: this.canvas.height - this.canvasPad,
+              x,
+              y,
+              width,
+              height,
             });
         });
       });
@@ -276,6 +306,11 @@
       this.ctx.lineTo(p2.x, p2.y);
       this.ctx.stroke();
     }
+
+    updateCanvasPad(state) {
+      this.canvasPad = state;
+    }
+
     getCanvasCenter() {
       const centerX = this.canvas.width / 2;
       const centerY = this.canvas.height / 2;
@@ -332,7 +367,7 @@
       shadowColor: 'rgba(240,45,45,0.8)',
     });
     emojiRef.value = emoji;
-    emoji.drawContour();
+    emoji.drawContour({});
   });
 </script>
 
