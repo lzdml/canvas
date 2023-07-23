@@ -1,0 +1,1 @@
+import{_ as e,q as o,o as s,e as _,b as n}from"./index-93ff0c6a.js";const t={},a={class:"content"};function r(d,i){const c=o("svg-icon");return s(),_("div",a,[n(c,{class:"iconfont","icon-class":"404"})])}const f=e(t,[["render",r],["__scopeId","data-v-8794cf6c"]]);export{f as default};
