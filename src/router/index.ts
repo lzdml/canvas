@@ -1,3 +1,10 @@
+/*
+ * @Author: DZL
+ * @Date: 2023-07-25 21:56:07
+ * @LastEditors: DZL
+ * @LastEditTime: 2023-07-25 22:38:58
+ * @Description:
+ */
 import { RouteRecordRaw, createRouter, createWebHashHistory } from 'vue-router';
 
 import Layout from '/@/layout/index.vue';
@@ -17,7 +24,16 @@ const routes: Array<RouteRecordRaw> = [
         name: 'Home',
         component: () => import('/@/views/home/index.vue'),
         meta: {
-          title: '首页',
+          title: 'Emoji Maker',
+          keepAlive: false,
+        },
+      },
+      {
+        path: 'movie',
+        name: 'Movie',
+        component: () => import('/@/views/movie/index.vue'),
+        meta: {
+          title: '在线选票效果',
           keepAlive: false,
         },
       },

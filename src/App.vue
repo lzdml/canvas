@@ -1,3 +1,10 @@
+<!--
+ * @Author: DZL
+ * @Date: 2023-07-25 21:56:07
+ * @LastEditors: DZL
+ * @LastEditTime: 2023-07-25 23:01:33
+ * @Description: 
+-->
 <template>
   <router-view />
 </template>
@@ -32,5 +39,9 @@
     max-width: 750px;
     margin: 0 auto;
     min-height: 100%;
+  }
+
+  .box {
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
   }
 </style>

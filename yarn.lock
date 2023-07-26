@@ -479,7 +479,14 @@
   resolved "https://registry.npmmirror.com/@humanwhocodes/object-schema/-/object-schema-1.2.1.tgz#b520529ec21d8e5945a1851dfd1c32e94e39ff45"
   integrity sha512-ZnQMnLV4e7hDlUvw8H+U8ASL02SS2Gn6+9Ac3wGGLIe7+je2AeAOxPY+izIPJDfFDb7eDjev0Us8MO1iFRN8hA==
 
-"@iconify/types@^2.0.0":
+"@iconify-json/tabler@^1.1.83":
+  version "1.1.84"
+  resolved "https://registry.npmmirror.com/@iconify-json/tabler/-/tabler-1.1.84.tgz#947ad409fd70de416cfc66ee12d0c8eedd2abc98"
+  integrity sha512-XliiqnH4M6tS+qIbabnqTjgfT0PiEYy+93EWgx8hKiJyKGihfiGpWBKstNGfGc785T3uR9D+jjL9GXikDOnlug==
+  dependencies:
+    "@iconify/types" "*"
+
+"@iconify/types@*", "@iconify/types@^2.0.0":
   version "2.0.0"
   resolved "https://registry.npmmirror.com/@iconify/types/-/types-2.0.0.tgz#ab0e9ea681d6c8a1214f30cd741fe3a20cc57f57"
   integrity sha512-+wluvCrRhXrhyOmRDJ3q8mux9JkKy5SJ/v8ol2tu4FVjyYvtEzkc/3pK15ET6RKg4b4w4BmTk1+gsCUhf21Ykg==
@@ -1005,6 +1012,11 @@
   resolved "https://registry.npmmirror.com/@unocss/core/-/core-0.53.4.tgz#97458a7a906865d4d6f31b10b72e7c8e99f88e34"
   integrity sha512-JvmpuFOiJ8NkGzRmh0dCUmNdYjr8MmMtCX+czCmSnX2kvKyQjJIw3RIu84/DQbd/M/yxZmPjle8DrcZ1Ql86rQ==
 
+"@unocss/core@0.53.6":
+  version "0.53.6"
+  resolved "https://registry.npmmirror.com/@unocss/core/-/core-0.53.6.tgz#f1ffed606bfc9d13698288ea248f06ca32c63b0d"
+  integrity sha512-wuaLjWCzKUisHUxo4pjIdzcimdSmVa2hMHA3V7wVFBiSFX96/s7l0bvhHGFF/gMjbOnvJ+y+lBl3VKqcj9kwbA==
+
 "@unocss/extractor-arbitrary-variants@0.53.4":
   version "0.53.4"
   resolved "https://registry.npmmirror.com/@unocss/extractor-arbitrary-variants/-/extractor-arbitrary-variants-0.53.4.tgz#43f1cf627edf1f0d0edee318e12b6368d183c3e0"
@@ -1046,6 +1058,15 @@
   dependencies:
     "@iconify/utils" "^2.1.7"
     "@unocss/core" "0.53.4"
+    ofetch "^1.1.1"
+
+"@unocss/preset-icons@^0.53.6":
+  version "0.53.6"
+  resolved "https://registry.npmmirror.com/@unocss/preset-icons/-/preset-icons-0.53.6.tgz#14e1db864ca9ef66c63bafa8be1ff558adbed021"
+  integrity sha512-UhP+7pQCCKxtv7x4jzHd9LnbLUDRLWLq7iyLAMxI9Bq7Qg/XYaygeFUk1RlYBb+um0CGvU3jAVuXzwwlX3WncQ==
+  dependencies:
+    "@iconify/utils" "^2.1.7"
+    "@unocss/core" "0.53.6"
     ofetch "^1.1.1"
 
 "@unocss/preset-mini@0.53.4":
@@ -3962,6 +3983,11 @@ header-case@^2.0.4:
   dependencies:
     capital-case "^1.0.4"
     tslib "^2.0.3"
+
+highlight.js@^11.8.0:
+  version "11.8.0"
+  resolved "https://registry.npmmirror.com/highlight.js/-/highlight.js-11.8.0.tgz#966518ea83257bae2e7c9a48596231856555bb65"
+  integrity sha512-MedQhoqVdr0U6SSnWPzfiadUcDHfN/Wzq25AkXiQv9oiOO/sG0S7XkvpFIqWBl9Yq1UYyYOOVORs5UW2XlPyzg==
 
 homedir-polyfill@^1.0.1:
   version "1.0.3"

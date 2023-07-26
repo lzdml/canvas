@@ -1,24 +1,5 @@
 <template>
   <div class="uppercase content">
-    <CustomHeader
-      title=""
-      :border="false"
-      :is-fixed="false"
-      :show-left="false"
-      class="!bg-transparent h-14">
-      <template #content>
-        <div class="text-xl font-extrabold tracking-wide text-neutral-800">Emoji Maker</div>
-      </template>
-      <template #right_slot>
-        <div
-          class="inline-flex items-center justify-center w-full h-full p-1 transition-opacity opacity-50 cursor-pointer text-neutral-600"
-          hover="opacity-100">
-          <i
-            text-2xl
-            i-carbon:sun></i>
-        </div>
-      </template>
-    </CustomHeader>
     <div
       class="px-4"
       sm="px-0">
@@ -371,8 +352,4 @@
   });
 </script>
 
-<style scoped>
-  .box {
-    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
-  }
-</style>
+<style scoped></style>

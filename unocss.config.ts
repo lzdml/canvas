@@ -1,3 +1,10 @@
+/*
+ * @Author: DZL
+ * @Date: 2023-07-25 21:56:07
+ * @LastEditors: DZL
+ * @LastEditTime: 2023-07-26 20:49:38
+ * @Description:
+ */
 import { defineConfig, presetAttributify, presetIcons, presetUno } from 'unocss';
 // import presetIcons from '@unocss/preset-icons';
 
@@ -43,8 +50,8 @@ export default defineConfig({
       error_pressed: 'var(--error-color-pressed)',
       error_active: 'var(--error-color-active)',
       neutral: '#f5f5f5',
-      basic_shadow: 'rgba(100, 100, 111, 0.2) 0px 7px 29px 0px',
-      c_theme: '#F02D2D',
+      // c_theme: '#F02D2D',
+      c_theme: '#e55743',
     },
   },
 });
