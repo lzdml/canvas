@@ -37,6 +37,15 @@ const routes: Array<RouteRecordRaw> = [
           keepAlive: false,
         },
       },
+      {
+        path: 'ball',
+        name: 'Ball',
+        component: () => import('/@/views/ball/index.vue'),
+        meta: {
+          title: '小球动画',
+          keepAlive: false,
+        },
+      },
     ],
   },
   ...ERROR_ROUTES,

@@ -3,7 +3,7 @@
     class="max-w-187.5 mx-auto h-full select-none"
     id="layout-container">
     <div class="h-14 flex items-center">
-      <div class="text-xl font-extrabold tracking-wide text-neutral-800 mr-3">{{ title }}</div>
+      <!-- <div class="text-xl font-extrabold tracking-wide text-neutral-800 mr-3">{{ title }}</div> -->
       <div class="flex-1 h-full overflow-x-auto whitespace-nowrap flex items-center gap-x-3 scrollbar scrollbar-h-2 cursor-pointer">
         <div
           class="flex justify-center items-center flex-shrink-0 rounded-md px-8 py-1"
