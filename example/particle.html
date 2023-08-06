@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Canvas Particle Effect</title>
+    <style>
+      canvas {
+        display: block;
+        position: absolute;
+        top: 0;
+        left: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <canvas id="particleCanvas"></canvas>
+
+    <script>
+      // 获取Canvas元素和上下文
+      const canvas = document.getElementById('particleCanvas');
+      const ctx = canvas.getContext('2d');
+
+      // 设置Canvas尺寸
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+
+      // 粒子数组
+      let particles = [];
+      const MAX_LEN = 200;
+
+      function limitParticlesInView(maxParticles) {
+        const particlesInView = particles.filter((particle) => {
+          return particle.x > 0 && particle.x < canvas.width && particle.y > 0 && particle.y < canvas.height;
+        });
+
+        if (particlesInView.length > maxParticles) {
+          // 超过限制时删除多余的粒子
+          particles.splice(maxParticles, particlesInView.length - maxParticles);
+        }
+      }
+
+      // 创建粒子类
+      class Particle {
+        constructor(x, y, radius, color, speedX, speedY) {
+          this.x = x;
+          this.y = y;
+          this.radius = radius;
+          this.color = color;
+          this.speedX = speedX;
+          this.speedY = speedY;
+        }
+
+        draw() {
+          ctx.beginPath();
+          ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+          ctx.closePath();
+          ctx.fillStyle = this.color;
+          ctx.fill();
+        }
+
+        update() {
+          this.x += this.speedX;
+          this.y += this.speedY;
+        }
+      }
+
+      // 生成随机整数
+      function randomIntFromRange(min, max) {
+        return Math.floor(Math.random() * (max - min + 1) + min);
+      }
+
+      // 生成随机颜色
+      function randomColor(colors) {
+        return colors[Math.floor(Math.random() * colors.length)];
+      }
+
+      // 初始化粒子数组
+      function init() {
+        for (let i = 0; i < 100; i++) {
+          const radius = randomIntFromRange(1, 5);
+          const x = randomIntFromRange(radius, canvas.width - radius);
+          const y = randomIntFromRange(radius, canvas.height - radius);
+          const color = randomColor(['#f44336', '#3f51b5', '#4caf50', '#ffeb3b', '#ff5722']);
+          const speedX = (Math.random() - 0.5) * 2; // 随机速度在[-1, 1]之间
+          const speedY = (Math.random() - 0.5) * 2;
+          particles.push(new Particle(x, y, radius, color, speedX, speedY));
+        }
+      }
+
+      // 动画循环
+      function animate() {
+        requestAnimationFrame(animate);
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+        particles.forEach((particle) => {
+          particle.update();
+          particle.draw();
+        });
+
+        limitParticlesInView(MAX_LEN);
+      }
+
+      // 鼠标点击时，在点击位置生成特殊粒子效果
+      canvas.addEventListener('click', (event) => {
+        const x = event.clientX;
+        const y = event.clientY;
+        for (let i = 0; i < 10; i++) {
+          const radius = randomIntFromRange(3, 6);
+          const color = randomColor(['#f44336', '#3f51b5', '#4caf50', '#ffeb3b', '#ff5722']);
+          const speedX = (Math.random() - 0.5) * 4; // 随机速度在[-2, 2]之间
+          const speedY = (Math.random() - 0.5) * 4;
+          particles.push(new Particle(x, y, radius, color, speedX, speedY));
+        }
+      });
+
+      // 初始化并启动动画
+      init();
+      animate();
+
+      // 监听窗口大小变化事件，重新设置Canvas尺寸
+      window.addEventListener('resize', () => {
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+        init(); // 调整窗口大小时重新初始化粒子数组
+      });
+    </script>
+  </body>
+</html>

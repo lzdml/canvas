@@ -1,5 +1,3 @@
-import { LocationQuery } from 'vue-router';
-
 export const sleep = (delay = 1000) => {
   return new Promise((resolve) => setTimeout(resolve, delay));
 };
@@ -35,21 +33,4 @@ export function timestampToStandardDateTime(timestamp) {
   const seconds = String(date.getSeconds()).padStart(2, '0');
 
   return `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
-}
-
-/**
- * @param {string} path
- * @description useStaticImgUrl('/@/assets/images/....png')
- */
-export const useStaticImgUrl = (path: string, prefix = 'jpg') => {
-  return new URL(`../assets/images/${path}.${prefix}`, import.meta.url).href;
-};
-
-export function getOtherQuery(query: LocationQuery) {
-  return Object.keys(query).reduce((acc, cur) => {
-    if (cur !== 'redirect') {
-      acc[cur] = query[cur];
-    }
-    return acc;
-  }, {} as LocationQuery);
 }

@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Enhanced Mouse Wheel Zoom</title>
+    <style>
+      #container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        overflow: hidden; /* 隐藏溢出部分的内容 */
+      }
+
+      #image {
+        width: 300px;
+        transition: transform 0.2s ease;
+        user-select: none;
+        cursor: grab; /* 设置鼠标样式为拖动手势 */
+      }
+    </style>
+  </head>
+  <body>
+    <div id="container">
+      <img
+        id="image"
+        src="../src/assets/images/girl.png"
+        alt="Image" />
+    </div>
+
+    <script>
+      // 获取图片元素和容器元素
+      const image = document.getElementById('image');
+      const container = document.getElementById('container');
+
+      // 设置初始缩放比例和偏移量
+      let scale = 1;
+      let offsetX = 0;
+      let offsetY = 0;
+
+      // 是否处于拖动状态
+      let isDragging = false;
+      let dragStartX = 0;
+      let dragStartY = 0;
+
+      // 监听鼠标滚轮事件
+      function handleMouseWheel(event) {
+        event.preventDefault(); // 阻止默认的滚动行为
+
+        // 通过事件的deltaY属性获取滚动方向和滚动量
+        const delta = event.deltaY;
+
+        // 根据滚动量调整缩放比例，这里简单地设置每次滚动改变0.1倍大小
+        if (delta > 0) {
+          scale -= 0.1;
+        } else if (delta < 0) {
+          scale += 0.1;
+        }
+
+        // 限制缩放比例的范围，避免过大或过小
+        scale = Math.max(0.5, Math.min(2, scale));
+
+        // 应用缩放变换
+        image.style.transform = `scale(${scale})`;
+
+        // 如果缩放时出现溢出，需要调整偏移量，使得图片保持居中显示
+        const boundingRect = image.getBoundingClientRect();
+        if (boundingRect.width > container.clientWidth) {
+          offsetX = Math.max(Math.min(offsetX, 0), container.clientWidth - boundingRect.width);
+        } else {
+          offsetX = 0;
+        }
+        if (boundingRect.height > container.clientHeight) {
+          offsetY = Math.max(Math.min(offsetY, 0), container.clientHeight - boundingRect.height);
+        } else {
+          offsetY = 0;
+        }
+        image.style.transform += ` translate(${offsetX}px, ${offsetY}px)`;
+      }
+
+      // 添加滚轮事件监听器
+      document.addEventListener('wheel', handleMouseWheel);
+
+      // 监听鼠标按下事件，标记开始拖动
+      image.addEventListener('mousedown', (event) => {
+        isDragging = true;
+        dragStartX = event.clientX - offsetX;
+        dragStartY = event.clientY - offsetY;
+        image.style.cursor = 'grabbing'; // 设置鼠标样式为拖动中的手势
+      });
+
+      // 监听鼠标移动事件，根据拖动状态调整偏移量
+      image.addEventListener('mousemove', (event) => {
+        if (isDragging) {
+          offsetX = event.clientX - dragStartX;
+          offsetY = event.clientY - dragStartY;
+          image.style.transform = `scale(${scale}) translate(${offsetX}px, ${offsetY}px)`;
+        }
+      });
+
+      // 监听鼠标松开事件，标记停止拖动
+      image.addEventListener('mouseup', () => {
+        isDragging = false;
+        image.style.cursor = 'grab'; // 设置鼠标样式为拖动手势
+      });
+
+      // 添加鼠标移出容器的事件，标记停止拖动
+      container.addEventListener('mouseleave', () => {
+        isDragging = false;
+        image.style.cursor = 'grab'; // 设置鼠标样式为拖动手势
+      });
+    </script>
+  </body>
+</html>

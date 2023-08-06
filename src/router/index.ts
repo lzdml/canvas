@@ -46,6 +46,15 @@ const routes: Array<RouteRecordRaw> = [
           keepAlive: false,
         },
       },
+      {
+        path: 'particle',
+        name: 'Particle',
+        component: () => import('/@/views/particle/index.vue'),
+        meta: {
+          title: '粒子特效',
+          keepAlive: false,
+        },
+      },
     ],
   },
   ...ERROR_ROUTES,
