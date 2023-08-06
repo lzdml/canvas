@@ -89,7 +89,7 @@
       particle.update();
     });
 
-    limitParticlesInView(12);
+    limitParticlesInView(300);
   }
 
   function createParticle(x: number, y: number, speedCoefficient = 2) {
