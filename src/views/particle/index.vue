@@ -6,12 +6,13 @@
       <span>点击粒子个数</span>
       <input
         class="px-4 py-3 rounded-md w-80 text-base"
-        type="text"
+        type="number"
         v-model="num"
+        :max="maxNum"
         placeholder="点击粒子个数" />
     </div>
     <div>
-      <span>画布最多粒子个数</span>
+      <span>画布最多粒子个数(最大1000)</span>
       <input
         class="px-4 py-3 rounded-md w-80 text-base"
         type="text"
@@ -33,6 +34,24 @@
 
   const num = ref(10);
   const maxNum = ref(200);
+
+  watch(
+    () => num.value,
+    (n) => {
+      if (n >= maxNum.value) {
+        num.value = Math.floor(maxNum.value);
+      }
+    },
+  );
+
+  watch(
+    () => maxNum.value,
+    (n) => {
+      if (Math.floor(n) > 1000) {
+        maxNum.value = 1000;
+      }
+    },
+  );
 
   class Particle {
     x: number;
@@ -109,7 +128,7 @@
       particle.update();
     });
 
-    limitParticlesInView(maxNum.value);
+    limitParticlesInView(Math.floor(maxNum.value) >= 1000 ? 1000 : Math.floor(maxNum.value));
   }
 
   function createParticle(x: number, y: number, speedCoefficient = 2) {
