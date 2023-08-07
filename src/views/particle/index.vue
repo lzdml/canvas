@@ -2,6 +2,23 @@
   <div
     sm="px-18 py-12"
     class="relative z-20 flex flex-col items-center box1 p-4 gap-y-4">
+    <div>
+      <span>点击粒子个数</span>
+      <input
+        class="px-4 py-3 rounded-md w-80 text-base"
+        type="text"
+        v-model="num"
+        placeholder="点击粒子个数" />
+    </div>
+    <div>
+      <span>画布最多粒子个数</span>
+      <input
+        class="px-4 py-3 rounded-md w-80 text-base"
+        type="text"
+        v-model="maxNum"
+        :min="num * 2"
+        placeholder="画布最多粒子个数" />
+    </div>
     <canvas
       ref="canvasRef"
       width="700"
@@ -13,6 +30,9 @@
   const canvasRef = ref<HTMLCanvasElement | null>();
   const ctx = computed(() => canvasRef.value!.getContext('2d')!);
   const particles = ref<Particle[]>([]);
+
+  const num = ref(10);
+  const maxNum = ref(200);
 
   class Particle {
     x: number;
@@ -89,7 +109,7 @@
       particle.update();
     });
 
-    limitParticlesInView(300);
+    limitParticlesInView(maxNum.value);
   }
 
   function createParticle(x: number, y: number, speedCoefficient = 2) {
@@ -109,7 +129,7 @@
     const mouseX = x - rect.left;
     const mouseY = y - rect.top;
     const speedCoefficient = 4;
-    for (let i = 0; i < 10; i++) {
+    for (let i = 0; i < num.value; i++) {
       createParticle(mouseX, mouseY, speedCoefficient * speedCoefficient);
     }
   }
