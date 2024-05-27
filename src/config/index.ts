@@ -1,0 +1,42 @@
+export const CANVAS = {
+  width: 375,
+  height: 375,
+};
+
+export const VISUAL_DESIGN = {
+  demo1: {
+    end: 'hello world',
+    start: [
+      'Tikiw Plati',
+      'Wkslc Wbxsw',
+      'Xsodu Qwoev',
+      'Dewcz Gewoe',
+      'Rsero Bokrs',
+      'Ckoex Jwclb',
+      'Tikiw Plati',
+      'Wkslc Wbxsw',
+      'Xsodu Qwoeb',
+      'Dewcz Gewoe',
+      'Rsero Bokrs',
+      'Ckoex Jwclb',
+      'Haiiw Pavis',
+      'Hwlle Ykels',
+      'Helic Wexiw',
+      'Heiik Mkdie',
+      'Helju Qvold',
+      'Helim Xkvlc',
+      'Hellw Gewie',
+      'Hellv Rkels',
+      'Hello Bokis',
+      'Hello Ceoix',
+      'Hello Wwclb',
+      'Hello Wzrlm',
+      'Hello Woaic',
+      'Hello Woxlm',
+      'Hello Woriw',
+      'Hello Woriv',
+      'Hello Worlc',
+      'Hello Worle',
+    ],
+  },
+};

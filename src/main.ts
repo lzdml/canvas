@@ -9,11 +9,11 @@ import 'uno.css';
 
 import '/@/assets/fonts/iconfont.css';
 import 'virtual:svg-icons-register';
-import feedTouch from './directives/feedTouch';
+import { waves } from '/@/directives';
 
 //vue3的挂载方式
 const app = createApp(App);
-app.directive('feed-touch', feedTouch);
+app.directive('waves', waves);
 app.use(router);
 app.use(piniaStore);
 app.mount('#app');

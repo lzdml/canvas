@@ -10,6 +10,7 @@ import { createVitePlugins } from './build/vite/plugins';
 import { resolve } from 'path';
 import proxy from './build/vite/proxy';
 import { wrapperEnv } from './build/utils';
+import topLevelAwait from 'vite-plugin-top-level-await';
 
 function pathResolve(dir: string) {
   return resolve(process.cwd(), '.', dir);
@@ -43,7 +44,7 @@ export default ({ command, mode }: ConfigEnv): UserConfig => {
       ],
     },
     // plugins
-    plugins: createVitePlugins(viteEnv, isBuild),
+    plugins: [...createVitePlugins(viteEnv, isBuild), topLevelAwait()],
 
     // css
     css: {},
@@ -60,6 +61,7 @@ export default ({ command, mode }: ConfigEnv): UserConfig => {
     },
 
     build: {
+      target: 'esnext',
       rollupOptions: {
         output: {
           chunkFileNames: 'js/[name]-[hash].js', // 引入文件名的名称

@@ -1,7 +1,5 @@
 <template>
-  <div
-    sm="px-18 py-12"
-    class="relative z-20 flex flex-col items-center box1 p-4 gap-y-4">
+  <div class="w-full h-full flex justify-center items-center">
     <canvas
       ref="canvasRef"
       width="500"
@@ -67,7 +65,6 @@
   // 初始化小球
   onMounted(() => {
     const canvas = canvasRef.value!;
-    console.log('canvas :>> ', canvas);
     const ball = new Ball(110, 110, 20, 'black');
     // 处理鼠标交互
     ball.handleMouseInteraction(canvas);

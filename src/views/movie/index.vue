@@ -109,7 +109,6 @@
 
   const formattedCode = ref('');
   const codeRef = ref();
-  console.log('formattedCode :>> ', formattedCode);
   onMounted(() => {
     hljs.highlightBlock(codeRef.value);
     drawSeats();

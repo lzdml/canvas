@@ -20,14 +20,29 @@
         :min="num * 2"
         placeholder="画布最多粒子个数" />
     </div>
+
+    <!-- <div>
+      <button
+        @click="resetCanvas"
+        class="btn">
+        清空画布
+      </button>
+    </div> -->
     <canvas
       ref="canvasRef"
-      width="700"
+      :style="{
+        width: width + 'px',
+        height: height + 'px',
+      }"
       class="box rounded-md"></canvas>
   </div>
 </template>
 
 <script setup lang="ts">
+  import { CANVAS } from '/@/config/index';
+
+  const { width, height } = CANVAS;
+
   const canvasRef = ref<HTMLCanvasElement | null>();
   const ctx = computed(() => canvasRef.value!.getContext('2d')!);
   const particles = ref<Particle[]>([]);
@@ -83,10 +98,10 @@
       this.x += this.speedX;
       this.y += this.speedY;
 
-      if ((this.x - this.radius < 0 || this.x + this.radius >= canvasRef.value!.width) && Math.random() > 0.1) {
+      if ((this.x - this.radius < 0 || this.x + this.radius >= width) && Math.random() > 0.1) {
         this.speedX *= -1;
       }
-      if ((this.y - this.radius < 0 || this.y + this.radius >= canvasRef.value!.height) && Math.random() > 0.1) {
+      if ((this.y - this.radius < 0 || this.y + this.radius >= height) && Math.random() > 0.1) {
         this.speedY *= -1;
       }
     }
@@ -96,8 +111,8 @@
   function resizeCanvas() {
     const canvas = canvasRef.value!;
 
-    canvas.width = window.innerWidth - 100;
-    canvas.height = window.innerHeight - 140;
+    canvas.width = width;
+    canvas.height = height;
   }
 
   function getRandomColor() {
@@ -112,8 +127,8 @@
     for (let i = 0; i < 10; i++) {
       const radius = getRandomFromRange(1, 5);
 
-      const x = getRandomFromRange(radius, canvasRef.value!.width - radius);
-      const y = getRandomFromRange(radius, canvasRef.value!.height - radius);
+      const x = getRandomFromRange(radius, width - radius);
+      const y = getRandomFromRange(radius, height - radius);
       createParticle(x, y);
     }
   }
@@ -121,7 +136,7 @@
   function animate() {
     requestAnimationFrame(animate);
 
-    ctx.value.clearRect(0, 0, canvasRef.value!.width, canvasRef.value!.height);
+    ctx.value.clearRect(0, 0, width, height);
 
     particles.value.forEach((particle) => {
       particle.draw();
@@ -155,7 +170,7 @@
 
   function limitParticlesInView(maxParticles) {
     const particlesInView = particles.value.filter((particle) => {
-      return particle.x > 0 && particle.x < canvasRef.value!.width && particle.y > 0 && particle.y < canvasRef.value!.height;
+      return particle.x > 0 && particle.x < width && particle.y > 0 && particle.y < height;
     });
 
     if (particlesInView.length > maxParticles) {
@@ -175,8 +190,4 @@
   });
 </script>
 
-<style scoped>
-  .box1 {
-    /* box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 2px 0px; */
-  }
-</style>
+<style scoped></style>

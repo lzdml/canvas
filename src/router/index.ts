@@ -55,6 +55,24 @@ const routes: Array<RouteRecordRaw> = [
           keepAlive: false,
         },
       },
+      {
+        path: 'visualizer',
+        name: 'Visualizer',
+        component: () => import('/@/views/visual-design/index.vue'),
+        meta: {
+          title: '视觉设计',
+          keepAlive: false,
+        },
+      },
+      {
+        path: 'pdf',
+        name: 'Pdf',
+        component: () => import('/@/views/pdf/index.vue'),
+        meta: {
+          title: 'pdf',
+          keepAlive: false,
+        },
+      },
     ],
   },
   ...ERROR_ROUTES,

@@ -7,11 +7,13 @@ export {}
 
 declare module 'vue' {
   export interface GlobalComponents {
-    Arrow: typeof import('./../src/components/Arrow/index.vue')['default']
-    CustomHeader: typeof import('./../src/components/CustomHeader/index.vue')['default']
-    CustomModal: typeof import('./../src/components/CustomModal/index.vue')['default']
-    RouterLink: typeof import('vue-router')['RouterLink']
-    RouterView: typeof import('vue-router')['RouterView']
-    VanIcon: typeof import('vant/es')['Icon']
+    Arrow: typeof import('./../src/components/Arrow/index.vue')['default'];
+    CustomHeader: typeof import('./../src/components/CustomHeader/index.vue')['default'];
+    CustomModal: typeof import('./../src/components/CustomModal/index.vue')['default'];
+    EllipsisText: typeof import('./../src/components/EllipsisText/index.vue')['default'];
+    LoadingComp: typeof import('./../src/components/LoadingComp/index.vue')['default'];
+    QuickSwitchText: typeof import('./../src/components/QuickSwitchText/index.vue')['default'];
+    RouterLink: typeof import('vue-router')['RouterLink'];
+    RouterView: typeof import('vue-router')['RouterView'];
   }
 }
