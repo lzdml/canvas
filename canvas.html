@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      http-equiv="X-UA-Compatible"
+      content="IE=edge" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0" />
+    <title>使用hover先体验</title>
+    <style>
+      .time {
+        position: relative;
+        height: 100px;
+        box-sizing: border-box;
+      }
+      .text {
+        font-size: 100px;
+        color: #ffffff;
+        text-align: center;
+        line-height: 200px;
+      }
+      .time .top {
+        position: relative;
+      }
+      .time .bottom {
+        line-height: 0; /* 把数字头顶到上面去 */
+      }
+      .block {
+        width: 150px;
+        height: 100px;
+        background-color: black;
+        overflow: hidden;
+      }
+      .time .flod-box {
+        position: absolute;
+        top: 0; /* 为了把flod-box 放到top表面上 */
+        width: 150px;
+        height: 100px;
+        transform-style: preserve-3d;
+        transform-origin: bottom; /* 以底部为旋转的基准点 */
+        transition: all 1s;
+      }
+      .flod-box .flod-block {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        backface-visibility: hidden;
+        overflow: hidden;
+      }
+      .flod-box .front {
+        background-color: black;
+      }
+      .flod-box .back {
+        background-color: black;
+        transform: rotateX(0deg) rotateY(-180deg) scale(-1);
+        line-height: 0px; /* 把数字上移了*/
+      }
+      /* .hover-class {
+        transform: perspective(200px) rotateX(-180deg);
+      } */
+    </style>
+  </head>
+  <body>
+    <div class="time text">
+      <div class="top block">2</div>
+      <div class="flod-box">
+        <div class="front flod-block">1</div>
+        <div class="back flod-block">2</div>
+      </div>
+      <div class="bottom block">1</div>
+    </div>
+
+    <script>
+      const a = document.querySelectorAll('.flod-block')
+    </script>
+  </body>
+</html>

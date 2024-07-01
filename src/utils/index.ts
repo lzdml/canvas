@@ -130,3 +130,7 @@ export function getCurrentTime(format = 'yyyy-MM-dd hh:mm:ss', now = new Date())
     .replace('mm', minutes)
     .replace('ss', seconds);
 }
+
+export function getImagePath(path: string) {
+  return new URL(`../assets/images/${path}`, import.meta.url).href;
+}

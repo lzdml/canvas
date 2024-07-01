@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+     const fileName2 = 'http://192.168.2.55:3100/viewimg/关于调整教学工作指导委员会的通知.docx';
+
+    function urlToBlob(url) {
+      fetch(url).then(res => {
+        console.log('res :>> ', res);
+      });
+  }
+
+  urlToBlob(fileName2)
+  </script>
+</body>
+</html>

@@ -65,11 +65,11 @@ const routes: Array<RouteRecordRaw> = [
         },
       },
       {
-        path: 'pdf',
-        name: 'Pdf',
-        component: () => import('/@/views/pdf/index.vue'),
+        path: 'vue3-hooks',
+        name: 'Hooks',
+        component: () => import('/@/views/hooks/index.vue'),
         meta: {
-          title: 'pdf',
+          title: 'vue3-hooks',
           keepAlive: false,
         },
       },

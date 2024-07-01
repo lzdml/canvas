@@ -7,6 +7,7 @@
  */
 import { defineConfig, presetAttributify, presetIcons, presetUno } from 'unocss';
 // import presetIcons from '@unocss/preset-icons';
+import { presetScrollbar } from 'unocss-preset-scrollbar';
 
 export default defineConfig({
   // exclude: ['node_modules', '.git', '.github', '.husky', '.vscode', 'build', 'dist', 'mock', 'public', './stats.html'],
@@ -24,6 +25,7 @@ export default defineConfig({
         'vertical-align': 'middle',
       },
     }),
+    presetScrollbar(),
   ],
   shortcuts: [],
   rules: [],

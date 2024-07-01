@@ -28,3 +28,6 @@ pnpm-lock.yaml*
 *.sw?
 ./packages
 ./history
+
+
+server
