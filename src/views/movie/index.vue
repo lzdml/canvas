@@ -139,16 +139,13 @@
     transition: background 0.8s ease;
 
     &:hover {
-      background: rgba(100, 0, 0, 0.03);
+      background: rgb(100 0 0 / 3%);
     }
 
     &__horizontal,
     &__vertical {
       position: absolute;
-      top: var(--horizontal-offset, 0);
-      right: var(--vertical-offset, 0);
-      bottom: var(--horizontal-offset, 0);
-      left: var(--vertical-offset, 0);
+      inset: var(--horizontal-offset, 0) var(--vertical-offset, 0) var(--horizontal-offset, 0) var(--vertical-offset, 0);
       transition: transform 0.8s ease;
       will-change: transform;
 
@@ -161,14 +158,12 @@
 
     &__horizontal {
       --vertical-offset: calc(var(--offset) * -1);
+
       border-top: var(--border-size) solid currentcolor;
       border-bottom: var(--border-size) solid currentcolor;
 
       &::before {
-        top: calc(var(--vertical-offset) - var(--border-size));
-        bottom: calc(var(--vertical-offset) - var(--border-size));
-        left: calc(var(--vertical-offset) * -1);
-        right: calc(var(--vertical-offset) * -1);
+        inset: calc(var(--vertical-offset) - var(--border-size)) calc(var(--vertical-offset) * -1) calc(var(--vertical-offset) - var(--border-size)) calc(var(--vertical-offset) * -1);
       }
     }
 
@@ -178,14 +173,12 @@
 
     &__vertical {
       --horizontal-offset: calc(var(--offset) * -1);
+
       border-left: var(--border-size) solid currentcolor;
       border-right: var(--border-size) solid currentcolor;
 
       &::before {
-        top: calc(var(--horizontal-offset) * -1);
-        bottom: calc(var(--horizontal-offset) * -1);
-        left: calc(var(--horizontal-offset) - var(--border-size));
-        right: calc(var(--horizontal-offset) - var(--border-size));
+        inset: calc(var(--horizontal-offset) * -1) calc(var(--horizontal-offset) - var(--border-size)) calc(var(--horizontal-offset) * -1) calc(var(--horizontal-offset) - var(--border-size));
       }
     }
 

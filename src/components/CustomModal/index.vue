@@ -79,7 +79,6 @@
 
   .modal-enter-from .modal-container,
   .modal-leave-to .modal-container {
-    transform: scale(1.1);
     transform: scale(1.2);
   }
 </style>

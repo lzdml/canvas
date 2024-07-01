@@ -88,6 +88,6 @@
 
 <style scoped>
   .box1 {
-    box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 2px 0px;
+    box-shadow: rgb(0 0 0 / 10%) 0 1px 2px 0;
   }
 </style>
